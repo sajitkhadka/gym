@@ -30,7 +30,7 @@ public class UserPlanCategorySchedule {
     private UserPlan userPlan;
     //order of each category by which each day the schedule would be followed
     @Column
-    int order;
+    int dayOrder;
 
     @ManyToOne
     @JoinColumn(name = "workout_category_id", nullable = false)

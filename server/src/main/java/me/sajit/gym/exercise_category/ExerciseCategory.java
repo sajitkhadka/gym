@@ -29,6 +29,4 @@ public class ExerciseCategory {
     @JoinColumn(name="exercise_id", nullable = false)
     Exercise exercise;
 
-    @Column
-    Long exerciseId;
 }
