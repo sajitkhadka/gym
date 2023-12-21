@@ -1,0 +1,39 @@
+package me.sajit.gym.user_plan;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import me.sajit.gym.user.User;
+import me.sajit.gym.workout_category.WorkoutCategory;
+
+/**
+ * For user's plan, this includes all exercise routine, which would be repeated in the given order
+ */
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserPlanCategorySchedule {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "user_plan_id", nullable = false)
+    private UserPlan userPlan;
+    //order of each category by which each day the schedule would be followed
+    @Column
+    int order;
+
+    @ManyToOne
+    @JoinColumn(name = "workout_category_id", nullable = false)
+    private WorkoutCategory workoutCategory;
+
+}
