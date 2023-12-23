@@ -24,8 +24,13 @@ public class PredefinedPlan {
     @Column
     String name;
 
+    //how many workouts included in each repetition
     @Column
-    int workoutPerWeek;
+    int workoutPerCycle;
+
+    //how often the workout will be repeated
+    @Column
+    int repeatCycle;
 
     @Column
     String details;
