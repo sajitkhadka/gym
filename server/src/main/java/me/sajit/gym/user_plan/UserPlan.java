@@ -3,9 +3,11 @@ package me.sajit.gym.user_plan;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.sajit.gym.user.User;
+import me.sajit.gym.workout_plan.domain.PredefinedPlan;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UserPlan {
 
     @Id
@@ -38,6 +41,12 @@ public class UserPlan {
     @Column
     String name;
 
+    @ManyToOne
+    @JoinColumn(name="predefined_plan_id")
+    private PredefinedPlan predefinedPlan;
+
     @OneToMany(mappedBy = "userPlan", cascade = CascadeType.ALL)
     private List<UserPlanCategorySchedule> categorySchedules;
+
+
 }

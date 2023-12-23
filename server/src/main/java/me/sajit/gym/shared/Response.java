@@ -1,4 +1,4 @@
-package me.sajit.jam.shared;
+package me.sajit.gym.shared;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
@@ -12,7 +12,7 @@ import java.util.Map;
 @SuperBuilder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Response {
-    protected LocalDateTime timeStamp;
+    protected LocalDateTime timeStamp = LocalDateTime.now();
     protected int statusCode;
     protected HttpStatus status;
     protected String reason;

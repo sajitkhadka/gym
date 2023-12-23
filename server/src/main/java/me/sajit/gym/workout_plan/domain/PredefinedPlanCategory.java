@@ -1,8 +1,10 @@
-package me.sajit.gym.workout_plan;
+package me.sajit.gym.workout_plan.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.sajit.gym.workout_category.WorkoutCategory;
@@ -17,6 +19,7 @@ import me.sajit.gym.workout_category.WorkoutCategory;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class PredefinedPlanCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,4 +28,9 @@ public class PredefinedPlanCategory {
     @ManyToOne
     @JoinColumn(name = "workout_category_id", nullable = false)
     private WorkoutCategory workoutCategory;
+
+    @ManyToOne
+    @JoinColumn(name ="predefined_plan_category_id", nullable = false)
+    @JsonIgnoreProperties("predefinedPlanCategories")
+    private PredefinedPlanSchedule predefinedPlanSchedule;
 }

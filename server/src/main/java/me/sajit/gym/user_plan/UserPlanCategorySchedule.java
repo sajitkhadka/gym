@@ -2,6 +2,7 @@ package me.sajit.gym.user_plan;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.sajit.gym.user.User;
@@ -15,6 +16,7 @@ import me.sajit.gym.workout_category.WorkoutCategory;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UserPlanCategorySchedule {
 
     @Id

@@ -1,2 +1,4 @@
-package me.sajit.gym.user_plan;public interface UserPlanService {
+package me.sajit.gym.user_plan;
+
+public interface UserPlanService {
 }

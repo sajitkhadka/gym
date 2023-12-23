@@ -1,32 +1,40 @@
-package me.sajit.gym.workout_plan;
+package me.sajit.gym.workout_plan.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.sajit.gym.user.User;
-import me.sajit.gym.workout_category.WorkoutCategory;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
-/**
- * This is the predefined workout category schedule from which user can select. this can be all workout categories that can
- * be repeated over and over again in the order that user decides. By default, it won't have order, once user picks one predefined
- * category they will have option to re-order them.
- */
+import java.util.List;
+
+
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PredefinedPlanCategorySchedule {
+@Builder
+public class PredefinedPlanSchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Column
+    String scheduleName;
+
     @ManyToOne
     @JoinColumn(name = "predefined_plan_id", nullable = false)
+    @JsonIgnoreProperties("predefinedPlanSchedules")
     private PredefinedPlan predefinedPlan;
-    //order of each category by which each day the schedule would be followed
 
+    @OneToMany(mappedBy = "predefinedPlanSchedule", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("predefinedPlanSchedule")
+    @Fetch(FetchMode.JOIN)
+    private List<PredefinedPlanCategory> predefinedPlanCategories;
 
 }

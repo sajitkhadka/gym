@@ -1,9 +1,13 @@
-package me.sajit.gym.workout_plan;
+package me.sajit.gym.workout_plan.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
@@ -15,6 +19,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class PredefinedPlan {
 
     @Id
@@ -32,9 +37,11 @@ public class PredefinedPlan {
     @Column
     int repeatCycle;
 
-    @Column
-    String details;
+    @Column(length = 3000)
+    String description;
 
     @OneToMany(mappedBy = "predefinedPlan", cascade = CascadeType.ALL)
-    List<PredefinedPlanCategorySchedule> predefinedPlanCategorySchedules;
+    @Fetch(FetchMode.JOIN)
+    @JsonIgnoreProperties("predefinedPlan")
+    List<PredefinedPlanSchedule> predefinedPlanSchedules;
 }
