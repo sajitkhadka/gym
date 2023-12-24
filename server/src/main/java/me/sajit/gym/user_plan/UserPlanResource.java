@@ -6,6 +6,7 @@ import me.sajit.gym.user_plan.dto.CreateUserPlanDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,21 @@ public class UserPlanResource {
                     Response.builder()
                             .data(Map.of("plan", userPlanService.createUserplan(createUserPlanDto)))
                             .message("Successfully created plan")
+                            .status(HttpStatus.OK)
+                            .build()
+            );
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(Response.builder().data(Map.of("message", e.getMessage())).build());
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<Response> getUserPlan() {
+        try {
+            return ResponseEntity.ok(
+                    Response.builder()
+                            .data(Map.of("plan", userPlanService.getActiveUserPlan()))
+                            .message("Successfully fetched plan")
                             .status(HttpStatus.OK)
                             .build()
             );

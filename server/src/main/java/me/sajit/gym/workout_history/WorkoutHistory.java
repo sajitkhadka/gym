@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.sajit.gym.user.User;
-import me.sajit.gym.user_plan.UserPlanCategorySchedule;
+import me.sajit.gym.user_plan.domain.UserPlanCategorySchedule;
 
 import java.time.LocalDateTime;
 

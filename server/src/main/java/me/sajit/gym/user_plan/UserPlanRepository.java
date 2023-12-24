@@ -1,6 +1,7 @@
 package me.sajit.gym.user_plan;
 
 import me.sajit.gym.user.User;
+import me.sajit.gym.user_plan.domain.UserPlan;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

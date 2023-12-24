@@ -1,5 +1,7 @@
-package me.sajit.gym.user_plan;
+package me.sajit.gym.user_plan.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,10 +27,13 @@ public class UserPlanCategorySchedule {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "user_plan_id", nullable = false)
+    @JsonIgnoreProperties("categorySchedules")
+    @JsonIgnore
     private UserPlan userPlan;
     //order of each category by which each day the schedule would be followed
     @Column

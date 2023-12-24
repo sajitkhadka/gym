@@ -1,6 +1,8 @@
-package me.sajit.gym.user_plan;
+package me.sajit.gym.user_plan.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +31,7 @@ public class UserPlan {
 
     @ManyToOne
     @JoinColumn(name="user_id", nullable = false)
+    @JsonIgnore
     User user;
 
     @Column
@@ -43,6 +46,7 @@ public class UserPlan {
 
     @ManyToOne
     @JoinColumn(name="predefined_plan_id")
+    @JsonIgnoreProperties("predefinedPlanSchedules")
     private PredefinedPlan predefinedPlan;
 
     @OneToMany(mappedBy = "userPlan", cascade = CascadeType.ALL)

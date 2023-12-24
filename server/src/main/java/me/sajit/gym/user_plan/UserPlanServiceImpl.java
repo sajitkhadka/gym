@@ -4,6 +4,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.sajit.gym.user.User;
 import me.sajit.gym.user.UserService;
+import me.sajit.gym.user_plan.domain.UserPlan;
+import me.sajit.gym.user_plan.domain.UserPlanCategorySchedule;
 import me.sajit.gym.user_plan.dto.CreateUserPlanDto;
 import me.sajit.gym.workout_category.WorkoutCategory;
 import me.sajit.gym.workout_plan.PredefinedPlanService;
@@ -62,5 +64,11 @@ public class UserPlanServiceImpl implements UserPlanService {
         }
         userplan.setCategorySchedules(userPlanCategorySchedules);
         return userPlanRepository.save(userplan);
+    }
+
+    @Override
+    public UserPlan getActiveUserPlan() {
+        User user = userService.getUserById(1);
+        return userPlanRepository.findByUserAndActive(user, true).orElseThrow();
     }
 }

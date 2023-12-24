@@ -1,7 +1,9 @@
 package me.sajit.gym.user_plan;
 
+import me.sajit.gym.user_plan.domain.UserPlan;
 import me.sajit.gym.user_plan.dto.CreateUserPlanDto;
 
 public interface UserPlanService {
-    public UserPlan createUserplan(CreateUserPlanDto createUserPlanDto);
+     UserPlan createUserplan(CreateUserPlanDto createUserPlanDto);
+     UserPlan getActiveUserPlan();
 }
