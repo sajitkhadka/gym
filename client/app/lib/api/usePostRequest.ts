@@ -6,7 +6,7 @@ interface UsePostRequestResult<T> {
     response: AxiosResponse<T> | null;
     error: string | null;
     loading: boolean;
-    post: (data: T) => void;
+    post: (data: T) => Promise<void>;
     reset: () => void;
     success: boolean
 }
@@ -18,30 +18,28 @@ export function usePostRequest<T>(url: string): UsePostRequestResult<T> {
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState(false);
 
-    const post = useCallback((data: T) => {
-        const postData = async () => {
-            setLoading(true);
-            try {
-                const response = await axios.post<T>(url, data);
-                setResponse(response);
-                setSuccess(true);
-            } catch (error: any) {
-                if (error instanceof AxiosError) {
-                    setError(error.response?.data?.message)
-                } else {
-                    setError(error.message);
-                }
-            } finally {
-                setLoading(false);
+    const post = useCallback(async (data: T) => {
+        setLoading(true);
+        try {
+            const response = await axios.post<T>(url, data);
+            setResponse(response);
+            setSuccess(true);
+        } catch (error: any) {
+            console.log(error)
+            if (error instanceof AxiosError) {
+                setError(error.response?.data?.data?.message)
+            } else {
+                setError(error.message);
             }
-        };
-
-        postData();
+        } finally {
+            setLoading(false);
+        }
     }, [url]);
 
     const reset = () => {
         setResponse(null);
         setSuccess(false);
+        setError("")
     }
 
     return { response, error, loading, post, reset, success };

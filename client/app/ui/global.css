@@ -182,3 +182,7 @@ input[type='number']::-webkit-outer-spin-button {
 .input {
   @apply w-full rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none;
 }
+
+.button {
+  @apply rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700;
+}
