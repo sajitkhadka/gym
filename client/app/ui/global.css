@@ -96,7 +96,7 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .head_text {
-  @apply mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-6xl;
+  @apply mt-4 text-5xl font-extrabold leading-[1.15] text-black sm:text-6xl;
 }
 
 .orange_gradient {
@@ -112,7 +112,7 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .desc {
-  @apply mt-5 max-w-2xl text-lg text-gray-600 sm:text-xl;
+  @apply mt-3 max-w-2xl text-lg text-gray-600 sm:text-xl;
 }
 
 .search_input {

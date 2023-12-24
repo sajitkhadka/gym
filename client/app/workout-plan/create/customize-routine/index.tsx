@@ -1,5 +1,6 @@
 import { PredefinedPlanSchedule } from '@/app/lib/api/predefined-plan';
 import { UserPlanScheduleDto } from '@/app/lib/api/workout-routine';
+import { DaysofWeek, getDaysOfWeek } from '@/app/lib/util';
 import { uuid } from '@/app/lib/uuid';
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, useDraggable, useDroppable } from '@dnd-kit/core';
 import React, { useEffect, useState } from 'react';
@@ -13,24 +14,17 @@ export interface Day {
     predefinedSchedule?: PredefinedPlanSchedule
 }
 
-export enum DaysofWeek {
-    'Monday' = 0, 'Tuesday' = 1, 'Wednesday' = 2, 'Thursday' = 3, 'Friday' = 4, 'Saturday' = 5, 'Sunday' = 6
-}
 
 function getNext7Days() {
-    var currentDate = new Date();
-    var result: Day[] = [];
+    const currentDate = new Date();
+    const result: Day[] = [];
     for (var i = 0; i < 7; i++) {
-        var nextDate = new Date(currentDate);
+        const nextDate = new Date(currentDate);
         nextDate.setDate(currentDate.getDate() + i);
-
-        var daysOfWeek: Array<keyof typeof DaysofWeek> = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        var dayOfWeek = daysOfWeek[nextDate.getDay()];
-
         result.push({
             id: (i + 1),
             date: nextDate.toDateString(),
-            dayOfWeek: dayOfWeek,
+            dayOfWeek: getDaysOfWeek(nextDate),
             predefinedSchedule: { id: 0, predefinedPlanCategories: [], scheduleName: "Rest Day" }
         });
     }
