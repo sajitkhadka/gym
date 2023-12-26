@@ -17,7 +17,7 @@ public class WorkoutCategoryServiceImpl implements WorkoutCategoryService{
     }
 
     @Override
-    public WorkoutCategory getWorkoutCategoryById(int categoryId) {
-        return repository.findById((long) categoryId).orElseThrow();
+    public WorkoutCategory getWorkoutCategoryById(Long categoryId) {
+        return repository.findById(categoryId).orElseThrow();
     }
 }

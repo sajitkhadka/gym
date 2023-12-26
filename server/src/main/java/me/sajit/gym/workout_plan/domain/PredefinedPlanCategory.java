@@ -21,6 +21,9 @@ import me.sajit.gym.workout_category.WorkoutCategory;
 @AllArgsConstructor
 @Builder
 public class PredefinedPlanCategory {
+    public  PredefinedPlanCategory(WorkoutCategory workoutCategory){
+        this.workoutCategory = workoutCategory;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

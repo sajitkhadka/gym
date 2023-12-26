@@ -36,14 +36,14 @@ public class PredefinedPlanServiceImpl implements  PredefinedPlanService{
     public PredefinedPlan createWorkoutPlan(CreateWorkoutPlan createWorkoutDto) {
         PredefinedPlan predefinedPlan = createWorkoutDto.getPredefinedPlan();
         List<PredefinedPlanSchedule> predefinedPlanSchedules = new ArrayList<>();
-        for(List<Integer> workouts: createWorkoutDto.getWorkoutSchedules()){
+        for(List<Long> workouts: createWorkoutDto.getWorkoutSchedules()){
             PredefinedPlanSchedule schedule = PredefinedPlanSchedule
                     .builder()
                     .predefinedPlan(predefinedPlan)
                     .build();
             StringBuilder scheduleName = new StringBuilder();
             List<PredefinedPlanCategory> predefinedPlanCategories = new ArrayList<>();
-            for(int category: workouts){
+            for(Long category: workouts){
                 WorkoutCategory workoutCategory = workoutCategoryService.getWorkoutCategoryById(category);
                 if(!scheduleName.toString().equals("")){
                     scheduleName.append("/");

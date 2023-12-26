@@ -44,4 +44,9 @@ public class PredefinedPlan {
     @Fetch(FetchMode.JOIN)
     @JsonIgnoreProperties("predefinedPlan")
     List<PredefinedPlanSchedule> predefinedPlanSchedules;
+
+//    public void setPredefinedPlanSchedules(List<PredefinedPlanSchedule> predefinedPlanSchedules) {
+//        this.predefinedPlanSchedules = predefinedPlanSchedules;
+//        predefinedPlanSchedules.forEach(schedule -> schedule.setPredefinedPlan(this));
+//    }
 }

@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface WorkoutCategoryService{
     public List<WorkoutCategory> getAllWorkoutCategories();
-    WorkoutCategory getWorkoutCategoryById(int categoryId);
+    WorkoutCategory getWorkoutCategoryById(Long categoryId);
 }
