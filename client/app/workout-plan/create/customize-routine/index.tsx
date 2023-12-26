@@ -1,35 +1,23 @@
 import { PredefinedPlanSchedule } from '@/app/lib/api/predefined-plan';
 import { UserPlanScheduleDto } from '@/app/lib/api/workout-routine';
-import { DaysofWeek, getDaysOfWeek } from '@/app/lib/util';
+import { DaysofWeek, IDay, getDaysOfWeek, getUpcomingDates } from '@/app/lib/util';
 import { uuid } from '@/app/lib/uuid';
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, useDraggable, useDroppable } from '@dnd-kit/core';
 import React, { useEffect, useState } from 'react';
 
-const REST_CATEGORY_ID = 10;
+export const REST_CATEGORY_ID = 10;
 
-export interface Day {
+export interface Day extends IDay {
     id: number,
     date: string,
-    dayOfWeek: keyof typeof DaysofWeek
+    day: keyof typeof DaysofWeek
     predefinedSchedule?: PredefinedPlanSchedule
 }
 
 
-function getNext7Days() {
-    const currentDate = new Date();
-    const result: Day[] = [];
-    for (var i = 0; i < 7; i++) {
-        const nextDate = new Date(currentDate);
-        nextDate.setDate(currentDate.getDate() + i);
-        result.push({
-            id: (i + 1),
-            date: nextDate.toDateString(),
-            dayOfWeek: getDaysOfWeek(nextDate),
-            predefinedSchedule: { id: 0, predefinedPlanCategories: [], scheduleName: "Rest Day" }
-        });
-    }
-
-    return result;
+function getNext7Days(): Day[] {
+    const upComingDays = getUpcomingDates(7);
+    return upComingDays.map((upComingDays) => ({ ...upComingDays, predefinedSchedule: { id: 0, predefinedPlanCategories: [], scheduleName: "Rest Day" } as PredefinedPlanSchedule }))
 }
 
 function Draggable({ day, children }: { day: Day, children: React.ReactNode }) {
@@ -51,7 +39,7 @@ function Droppable({ day }: { day: Day }) {
     return (
         <div ref={setNodeRef} className={`bg-gray-50 flex gap-4 border-[1px] border-dotted rounded border-black px-3 py-4 ${isOver ? "border-green-600 bg-green-500 text-white" : ""}`}>
             <div>
-                <p className='text-lg font-bold'>{day.dayOfWeek} </p>
+                <p className='text-lg font-bold'>{day.day} </p>
                 <p> {day.date}</p>
             </div>
             <Draggable day={day}>
@@ -91,10 +79,10 @@ const CustomizeDropDownRoutine = ({ predefinedPlanSchedules, onChange }: { prede
         const userPlanScheduleDto: UserPlanScheduleDto[] = []
         for (const day of sevenDays) {
             for (const category of day.predefinedSchedule?.predefinedPlanCategories || []) {
-                userPlanScheduleDto.push({ dayorder: DaysofWeek[day.dayOfWeek], workoutCategoryId: category.id });
+                userPlanScheduleDto.push({ dayorder: DaysofWeek[day.day], workoutCategoryId: category.workoutCategory.id });
             }
             if (day.predefinedSchedule?.id == 0 && day.predefinedSchedule.predefinedPlanCategories.length == 0) {
-                userPlanScheduleDto.push({ dayorder: DaysofWeek[day.dayOfWeek], workoutCategoryId: REST_CATEGORY_ID });
+                userPlanScheduleDto.push({ dayorder: DaysofWeek[day.day], workoutCategoryId: REST_CATEGORY_ID });
             }
         }
         onChange(userPlanScheduleDto);
