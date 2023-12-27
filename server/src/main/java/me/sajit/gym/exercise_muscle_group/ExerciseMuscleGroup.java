@@ -28,13 +28,13 @@ public class ExerciseMuscleGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name="exercise_id", nullable = false)
     Exercise exercise;
 
 
     @JoinColumn(name = "muscle_group_id", nullable = false)
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     MuscleGroup muscleGroup;
 
     @Column

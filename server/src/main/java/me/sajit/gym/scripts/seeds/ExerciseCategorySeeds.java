@@ -1,5 +1,6 @@
 package me.sajit.gym.scripts.seeds;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.sajit.gym.exercise_category.ExerciseCategory;
 import me.sajit.gym.exercise_category.ExerciseCategoryRepository;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@Transactional
 public class ExerciseCategorySeeds implements ISeeder{
 
     private final CategorySeeds categorySeeds;

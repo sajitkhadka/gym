@@ -8,7 +8,7 @@ public interface WorkoutCategoryRepository extends JpaRepository<WorkoutCategory
     default WorkoutCategory findOrCreateByCategory(WorkoutCategory category) {
         WorkoutCategory entity = findByCategory(category.category);
         if (entity == null) {
-            save(category);
+            entity = save(category);
         }
         return entity;
     }

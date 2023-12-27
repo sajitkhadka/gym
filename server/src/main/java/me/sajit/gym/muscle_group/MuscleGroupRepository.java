@@ -7,7 +7,7 @@ public interface MuscleGroupRepository extends JpaRepository<MuscleGroup, Long> 
     default MuscleGroup findOrCreateByMuscle(MuscleGroup muscleGroup) {
         MuscleGroup entity = findByMuscle(muscleGroup.muscle);
         if (entity == null) {
-            save(muscleGroup);
+            entity = save(muscleGroup);
         }
         return entity;
     }

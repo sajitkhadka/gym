@@ -9,7 +9,7 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
     default Exercise findOrCreateByName(Exercise exercise) {
         Exercise entity = findByName(exercise.name);
         if (entity == null) {
-            save(exercise);
+            entity = save(exercise);
         }
         return entity;
     }

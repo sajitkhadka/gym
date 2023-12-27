@@ -1,5 +1,6 @@
 package me.sajit.gym.scripts.seeds;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.sajit.gym.exercise_muscle_group.ExerciseMuscleGroup;
 import me.sajit.gym.exercise_muscle_group.ExerciseMuscleGroupRepository;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Component
+@Transactional
 public class ExerciseMuscleGroupSeeds implements ISeeder {
     private final ExerciseSeeds exerciseSeeds;
     private final MuscleGroupSeeds muscleGroupSeeds;
