@@ -19,7 +19,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'GYM_DB_USERNAME', variable: 'DB_USERNAME'),
                                      string(credentialsId: 'GYM_DB_URL', variable: 'DB_URL'),
                                      string(credentialsId: 'GYM_DB_PASSWORD', variable: 'DB_PASSWORD')]) {
-                        sh 'cd server && ./gradlew build'
+                        sh 'cd server && ./mvnw clean install'
                     }
                 }
             }
