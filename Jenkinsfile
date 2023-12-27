@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'gym_image'
         GITHUB_CREDENTIALS = credentials('gym-git-credentials')
+        SPRING_PROFILES_ACTIVE = 'prod'
     }
 
     stages {
