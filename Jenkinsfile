@@ -12,6 +12,7 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/sajitkhadka/gym.git']]])
             }
         }
+        
 
         stage('Build and Package Server') {
             steps {
@@ -19,7 +20,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'GYM_DB_USERNAME', variable: 'DB_USERNAME'),
                                      string(credentialsId: 'GYM_DB_URL', variable: 'DB_URL'),
                                      string(credentialsId: 'GYM_DB_PASSWORD', variable: 'DB_PASSWORD')]) {
-                        sh 'cd server && ./mvnw clean install'
+                        sh 'cd server && chmod +x mvnw && ./mvnw clean install'
                     }
                 }
             }
