@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  gym_server:
+    image: "${DOCKER_IMAGE}:${BUILD_ID}"
+    ports:
+      - "8082:8080"
+    environment:
+      - DB_USERNAME="${DB_USERNAME}"
+      - DB_PASSWORD="${DB_PASSWORD}"
+      - DB_URL="${DB_URL}"
+    container_name: sajit_gym
+
+networks:
+  default:
+    driver: bridge

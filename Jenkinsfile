@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'gym_image'
-        GITHUB_CREDENTIALS = credentials('gym-git-credentials')
+        DOCKER_IMAGE = 'sajit/gym_image'
         SPRING_PROFILES_ACTIVE = 'prod'
     }
 
@@ -13,7 +12,6 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/sajitkhadka/gym.git']]])
             }
         }
-        
 
         stage('Build and Package Server') {
             steps {
@@ -40,7 +38,7 @@ pipeline {
         stage('Build server docker') {
             steps {
                 script {
-                    sh 'docker build -t ${DOCKER_IMAGE} ./server'
+                    sh 'docker build -t ${DOCKER_IMAGE}:${BUILD_ID} ./server'
                 }
             }
         }
@@ -48,15 +46,20 @@ pipeline {
         stage('Deploy Docker Container') {
             steps {
                 script {
-                    sh "docker ps -a -q --filter name=sajit_gym | xargs docker stop || true"
-                    sh "docker ps -a -q --filter name=sajit_gym | xargs docker rm || true"
+                    // Stop and remove any previous containers
+                    sh "docker-compose down || true"
 
                     withCredentials([string(credentialsId: 'GYM_DB_USERNAME', variable: 'DB_USERNAME'),
                                      string(credentialsId: 'GYM_DB_URL', variable: 'DB_URL'),
                                      string(credentialsId: 'GYM_DB_PASSWORD', variable: 'DB_PASSWORD')]) {
-                        docker.withRun("${env.DOCKER_IMAGE}:${BUILD_ID}", "--name sajit_gym -p 8082:8081 -e DB_USERNAME=${DB_USERNAME} -e DB_PASSWORD=${DB_PASSWORD} -e DB_URL=${DB_URL} -d") {
-                            // Your container run steps here
-                        }
+                        // Set environment variables for Docker Compose
+                        env.DB_USERNAME = DB_USERNAME
+                        env.DB_PASSWORD = DB_PASSWORD
+                        env.DB_URL = DB_URL
+                        env.BUILD_ID = BUILD_ID
+
+                        // Start the application using Docker Compose
+                        sh 'docker-compose up -d'
                     }
                 }
             }
